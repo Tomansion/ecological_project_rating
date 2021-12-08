@@ -30,6 +30,7 @@ export default {
 html, body {
   height: 100%;
   margin: 0px;
+  font-family: sans-serif;
 }
 
 #app {

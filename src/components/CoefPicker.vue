@@ -2,8 +2,8 @@
   <div id="CoefPicker">
     <div id="criteriaList">
       <div class="criteria" v-for="i in nbCriteria" v-bind:key="i">
-        {{ String.fromCharCode(96 + i) }}
-        <div class="slider-styled" :id="'slider_' + i" />
+        {{ String.fromCharCode(64 + i) }}
+        <div :id="'slider_' + i" />
       </div>
     </div>
   </div>
@@ -43,25 +43,24 @@ export default {
 </script>
 
 <style scoped>
-/* Hide markers on slider handles */
-.slider-styled .noUi-handle::before,
-.slider-styled .noUi-handle::after {
-  display: none;
+#CoefPicker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
-
-.slider-styled .noUi-handle .noUi-touch-area {
-  border: 1px solid transparent;
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  width: auto;
-  height: auto;
+#criteriaList {
+  height: 100%;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(nbCriteria, minmax(min-content, max-content));
+  align-items: center;
 }
-
-/* Show a border when hovering the area the handle responds to */
-.slider-styled .noUi-handle:hover .noUi-touch-area {
-  border: 1px dashed #7f7f7f;
+.criteria {
+  display: grid;
+  grid-template-columns: 0fr 2fr;
 }
 </style>
