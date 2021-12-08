@@ -11,7 +11,7 @@
           v-model="criteriaValues[i - 1].coef"
           @input="(v) => updateCoef(i - 1)"
         />
-        <div :id="'slider_' + i" />
+        <div class=".slider-styled slider-round" :id="'slider_' + i" />
       </div>
     </div>
   </div>
@@ -44,8 +44,8 @@ export default {
     for (let i = 1; i < this.nbCriteria + 1; i++) {
       let slider = document.getElementById("slider_" + i);
       noUiSlider.create(slider, {
-        start: [5],
-        connect: true,
+        start: 5,
+        connect: [true, false],
         step: 0.1,
         range: {
           min: 0,
@@ -55,7 +55,7 @@ export default {
 
       // Bind the color changing function to the update event.
       slider.noUiSlider.on("update", () => {
-        this.criteriaValues[i - 1].value = parseInt(slider.noUiSlider.get());
+        this.criteriaValues[i - 1].value = parseFloat(slider.noUiSlider.get());
         this.$emit("updateCriteria", this.criteriaValues);
       });
     }
@@ -63,9 +63,12 @@ export default {
   methods: {
     updateCoef(index) {
       // Convert the input value to a number.
-      this.criteriaValues[index].coef = parseInt(
-        this.criteriaValues[index].coef
-      );
+      let newInput = parseFloat(this.criteriaValues[index].coef);
+      if (isNaN(newInput)) newInput = 0;
+      if (newInput < 0) newInput = 0;
+      if (newInput > 100) newInput = 100;
+
+      this.criteriaValues[index].coef = newInput;
       this.$emit("updateCriteria", this.criteriaValues);
     },
   },
@@ -117,42 +120,15 @@ input[type="number"] {
 .criteria input:focus {
   outline: 0;
 }
-
-.criteria-nav {
-  float: left;
-  position: relative;
-  height: 42px;
-}
-
-.criteria-button {
-  position: relative;
+</style>
+<style>
+.noUi-handle {
+  border-radius: 10px;
   cursor: pointer;
-  border-left: 1px solid #eee;
-  width: 20px;
-  text-align: center;
-  color: #333;
-  font-size: 13px;
-  font-family: "Trebuchet MS", Helvetica, sans-serif !important;
-  line-height: 1.7;
-  -webkit-transform: translateX(-100%);
-  transform: translateX(-100%);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+  box-shadow: inset 0 0 1px #fff;
+  background-color: #0274be;
 }
-
-.criteria-button.criteria-up {
-  position: absolute;
-  height: 50%;
-  top: 0;
-  border-bottom: 1px solid #eee;
-}
-
-.criteria-button.criteria-down {
-  position: absolute;
-  bottom: -1px;
-  height: 50%;
+.noUi-connect {
+  background: #79aed1;
 }
 </style>

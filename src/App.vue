@@ -9,17 +9,20 @@
     <div class="section">
       <RadarChart v-if="criteriaValues" :criteriaValues="criteriaValues" />
     </div>
-    <div class="section"></div>
+    <div class="section">
+      <GaugeChart v-if="criteriaValues" :criteriaValues="criteriaValues" />
+    </div>
   </div>
 </template>
 
 <script>
 import CoefPicker from "./components/CoefPicker.vue";
 import RadarChart from "./components/RadarChart.vue";
+import GaugeChart from "./components/GaugeChart.vue";
 
 export default {
   name: "App",
-  components: { CoefPicker, RadarChart },
+  components: { CoefPicker, RadarChart, GaugeChart },
   data() {
     return {
       nbCriteria: 5,
@@ -49,7 +52,6 @@ body {
   height: 100vh;
 }
 .section {
-  border: solid 1px #ccc;
   flex: 1;
 }
 
