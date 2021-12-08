@@ -36,7 +36,7 @@ export default {
       this.criteriaValues.push({
         coef: 1,
         value: 5,
-        letter: String.fromCharCode(64 + i),
+        name: String.fromCharCode(65 + i),
       });
     this.$emit("updateCriteria", this.criteriaValues);
   },
@@ -44,7 +44,7 @@ export default {
     for (let i = 1; i < this.nbCriteria + 1; i++) {
       let slider = document.getElementById("slider_" + i);
       noUiSlider.create(slider, {
-        start: [9],
+        start: [5],
         connect: true,
         step: 0.1,
         range: {

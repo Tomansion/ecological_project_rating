@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Plotly from 'plotly.js-dist-min'
+import Plotly from "plotly.js-dist-min";
 
 export default {
   props: {
@@ -13,34 +13,70 @@ export default {
     },
   },
   mounted() {
-    let data = [
-      {
-        type: "scatterpolar",
+      this.updateRadar();
+  },
+  methods: {
+    updateRadar() {
+      // Find the max coef
+      let max =
+        Math.max.apply(
+          Math,
+          this.criteriaValues.map((c) => c.coef)
+        ) * 10;
 
-        r: [39, 28, 8, 7, 28, 39],
+      let data = [
+        {
+          type: "scatterpolar",
 
-        theta: ["A", "B", "C", "D", "E", "A"],
+          r: this.criteriaValues.map(
+            (criteria) => criteria.value * criteria.coef
+          ),
 
-        fill: "toself",
-      },
-    ];
+          theta: this.criteriaValues.map((criteria) => criteria.name),
 
-    let layout = {
-      polar: {
-        radialaxis: {
-          visible: true,
-
-          range: [0, 50],
+          fill: "toself",
         },
+      ];
+
+      let layout = {
+        polar: {
+          radialaxis: {
+            visible: true,
+            range: [0, max],
+          },
+        },
+
+        margin: {
+          l: 20,
+          r: 20,
+          b: 20,
+          t: 20,
+          pad: 0,
+        },
+
+        showlegend: false,
+      };
+
+      Plotly.react("RadarChart", data, layout, {
+        displayModeBar: false,
+        responsive: true,
+      });
+    },
+  },
+  watch: {
+    criteriaValues: {
+      handler() {
+        this.updateRadar();
       },
-
-      showlegend: false,
-    };
-
-    Plotly.newPlot("RadarChart", data, layout);
+      deep: true,
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
+#RadarChart {
+  width: 100%;
+  height: 100%;
+}
 </style>

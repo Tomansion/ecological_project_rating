@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     updateCriteria(criteriaValues) {
-      console.log(criteriaValues);
       this.criteriaValues = criteriaValues;
     },
   },
