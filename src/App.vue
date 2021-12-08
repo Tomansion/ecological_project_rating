@@ -6,17 +6,20 @@
         v-on:updateCriteria="updateCriteria"
       />
     </div>
-    <div class="section"></div>
+    <div class="section">
+      <RadarChart v-if="criteriaValues" :criteriaValues="criteriaValues" />
+    </div>
     <div class="section"></div>
   </div>
 </template>
 
 <script>
 import CoefPicker from "./components/CoefPicker.vue";
+import RadarChart from "./components/RadarChart.vue";
 
 export default {
   name: "App",
-  components: { CoefPicker },
+  components: { CoefPicker, RadarChart },
   data() {
     return {
       nbCriteria: 5,

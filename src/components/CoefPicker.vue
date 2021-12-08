@@ -33,7 +33,11 @@ export default {
   created() {
     this.criteriaValues = [];
     for (let i = 0; i < this.nbCriteria; i++)
-      this.criteriaValues.push({ coef: 1, value: 5 });
+      this.criteriaValues.push({
+        coef: 1,
+        value: 5,
+        letter: String.fromCharCode(64 + i),
+      });
     this.$emit("updateCriteria", this.criteriaValues);
   },
   mounted() {

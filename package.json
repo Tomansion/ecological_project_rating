@@ -10,6 +10,8 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "nouislider": "^15.5.0",
+    "plotly.js": "^2.7.0",
+    "plotly.js-dist-min": "^2.7.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
