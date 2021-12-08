@@ -3,6 +3,7 @@
     <div id="criteriaList">
       <div class="criteria" v-for="i in nbCriteria" v-bind:key="i">
         {{ String.fromCharCode(64 + i) }}
+        <input type="number" min="0" step="1" title="Coeficient">
         <div :id="'slider_' + i" />
       </div>
     </div>
@@ -52,7 +53,7 @@ export default {
   height: 100%;
 }
 #criteriaList {
-  height: 100%;
+  height: 70%;
   width: 90%;
   display: grid;
   grid-template-columns: 1fr;
@@ -61,6 +62,71 @@ export default {
 }
 .criteria {
   display: grid;
-  grid-template-columns: 0fr 2fr;
+  grid-template-columns: 1fr 2fr 10fr;
+  align-items: center;
 }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]
+{
+  -moz-appearance: textfield;
+}
+
+.criteria input {
+  width: 25px;
+  height: 22px;
+  margin-right: 10px;
+  padding-left: 14px;
+  border: 1px solid rgb(206, 206, 206);
+  border-radius: 6px;
+}
+
+.criteria input:focus {
+  outline: 0;
+}
+
+.criteria-nav {
+  float: left;
+  position: relative;
+  height: 42px;
+}
+
+.criteria-button {
+  position: relative;
+  cursor: pointer;
+  border-left: 1px solid #eee;
+  width: 20px;
+  text-align: center;
+  color: #333;
+  font-size: 13px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+  line-height: 1.7;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.criteria-button.criteria-up {
+  position: absolute;
+  height: 50%;
+  top: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.criteria-button.criteria-down {
+  position: absolute;
+  bottom: -1px;
+  height: 50%;
+}
+
 </style>
