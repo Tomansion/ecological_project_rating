@@ -1,33 +1,40 @@
 <template>
   <div id="app">
     <div class="section">
-      <CoefPicker :nbCriteria="nbCriteria"/>
+      <CoefPicker
+        :nbCriteria="nbCriteria"
+        v-on:updateCriteria="updateCriteria"
+      />
     </div>
-    <div class="section">
-
-    </div>
-    <div class="section">
-
-    </div>
+    <div class="section"></div>
+    <div class="section"></div>
   </div>
 </template>
 
 <script>
-import CoefPicker from './components/CoefPicker.vue'
+import CoefPicker from "./components/CoefPicker.vue";
 
 export default {
   name: "App",
-  components: {CoefPicker},
+  components: { CoefPicker },
   data() {
     return {
-      nbCriteria: 5
-    }
+      nbCriteria: 5,
+      criteriaValues: null,
+    };
+  },
+  methods: {
+    updateCriteria(criteriaValues) {
+      console.log(criteriaValues);
+      this.criteriaValues = criteriaValues;
+    },
   },
 };
 </script>
 
 <style>
-html, body {
+html,
+body {
   height: 100%;
   margin: 0px;
   font-family: sans-serif;

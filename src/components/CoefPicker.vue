@@ -3,7 +3,14 @@
     <div id="criteriaList">
       <div class="criteria" v-for="i in nbCriteria" v-bind:key="i">
         {{ String.fromCharCode(64 + i) }}
-        <input type="number" min="0" step="1" title="Coeficient">
+        <input
+          type="number"
+          min="0"
+          step="1"
+          title="Coeficient"
+          v-model="criteriaValues[i - 1].coef"
+          @input="(v) => updateCoef(i - 1)"
+        />
         <div :id="'slider_' + i" />
       </div>
     </div>
@@ -19,13 +26,21 @@ export default {
     nbCriteria: { type: Number, requiered: true },
   },
   data() {
-    return {};
+    return {
+      criteriaValues: null,
+    };
+  },
+  created() {
+    this.criteriaValues = [];
+    for (let i = 0; i < this.nbCriteria; i++)
+      this.criteriaValues.push({ coef: 1, value: 5 });
+    this.$emit("updateCriteria", this.criteriaValues);
   },
   mounted() {
     for (let i = 1; i < this.nbCriteria + 1; i++) {
       let slider = document.getElementById("slider_" + i);
       noUiSlider.create(slider, {
-        start: [5],
+        start: [9],
         connect: true,
         step: 0.1,
         range: {
@@ -35,10 +50,20 @@ export default {
       });
 
       // Bind the color changing function to the update event.
-      slider.noUiSlider.on("update", function () {
-        console.log(slider.noUiSlider.get());
+      slider.noUiSlider.on("update", () => {
+        this.criteriaValues[i - 1].value = parseInt(slider.noUiSlider.get());
+        this.$emit("updateCriteria", this.criteriaValues);
       });
     }
+  },
+  methods: {
+    updateCoef(index) {
+      // Convert the input value to a number.
+      this.criteriaValues[index].coef = parseInt(
+        this.criteriaValues[index].coef
+      );
+      this.$emit("updateCriteria", this.criteriaValues);
+    },
   },
 };
 </script>
@@ -66,15 +91,13 @@ export default {
   align-items: center;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button
-{
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number]
-{
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -128,5 +151,4 @@ input[type=number]
   bottom: -1px;
   height: 50%;
 }
-
 </style>
