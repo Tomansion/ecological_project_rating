@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="section">
-
+      <CoefPicker :nbCriteria="nbCriteria"/>
     </div>
     <div class="section">
 
@@ -13,9 +13,16 @@
 </template>
 
 <script>
+import CoefPicker from './components/CoefPicker.vue'
+
 export default {
   name: "App",
-  components: {},
+  components: {CoefPicker},
+  data() {
+    return {
+      nbCriteria: 5
+    }
+  },
 };
 </script>
 
@@ -30,7 +37,6 @@ html, body {
   justify-content: space-between;
   width: 100vw;
   height: 100vh;
-  background-color: cadetblue;
 }
 .section {
   border: solid 1px #ccc;
