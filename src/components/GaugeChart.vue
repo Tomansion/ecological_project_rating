@@ -45,7 +45,7 @@ export default {
       var layout = {
         margin: {
           l: 20,
-          r: 20,
+          r: 40,
           b: 20,
           t: 20,
           pad: 0,
