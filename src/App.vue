@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <div id="top">
-      <ProjectPicker :projects="projects" />
+      <ProjectPicker
+        :projects="projects"
+        :selectedProjectNb="selectedProjectNb"
+        v-on:newProject="newProject"
+      />
     </div>
     <div id="bottom">
       <div class="section">
@@ -48,6 +52,7 @@ export default {
     let defaultCriteria = new Array(nbCriteria).fill(defaultValue);
 
     return {
+      defaultValue,
       nbCriteria,
       criteriaList: [
         { name: "A", coef: 1 },
@@ -66,18 +71,23 @@ export default {
     };
   },
   methods: {
+    newProject(name) {
+      this.projects.push({
+        name,
+        values: new Array(this.nbCriteria).fill(this.defaultValue),
+      });
+    },
     updateCriteriaName({ name, criteriaNb }) {
       this.criteriaList[criteriaNb].name = name;
-      this.$emit("update")
-
+      this.$emit("update");
     },
     updateCriteriaCoef({ coef, criteriaNb }) {
       this.criteriaList[criteriaNb].coef = coef;
-      this.$emit("update")
+      this.$emit("update");
     },
     updateProjectValue({ value, criteriaNb }) {
       this.projects[this.selectedProjectNb].values[criteriaNb] = value;
-      this.$emit("update")
+      this.$emit("update");
     },
   },
 };
