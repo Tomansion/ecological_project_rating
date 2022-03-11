@@ -11,7 +11,7 @@ export default {
       type: Array,
       required: true,
     },
-    projectValues: {
+    projects: {
       type: Array,
       required: true,
     },
@@ -23,38 +23,44 @@ export default {
   methods: {
     updateRadar() {
       // Find the max coef
-      let max =
-        Math.max.apply(
-          Math,
-          this.criteriaList.map((c) => c.coef)
+      let maxCriteriaCoef =
+        this.criteriaList.reduce(
+          (max, criteria) => Math.max(max, criteria.coef),
+          0
         ) * 10;
 
       // contruct the plotly radar plot
-      let data = [
-        {
+      let data = this.projects.map((project) => {
+        return {
           type: "scatterpolar",
-          r: this.projectValues.map((v, i) => v * this.criteriaList[i].coef),
-          theta: this.criteriaList.map((criteria) => criteria.name),
-          fill: "toself",
-        },
-      ];
-
-      // Add value to the end to loop the radar
-      if (this.projectValues.length > 0) {
-        data[0].r.push(this.projectValues[0] * this.criteriaList[0].coef);
-        data[0].theta.push(this.criteriaList[0].name);
-      }
+          name: project.name,
+          r: [
+            ...project.values.map((v, i) => v * this.criteriaList[i].coef),
+            // Add value to the end to loop the radar
+            project.values[0] * this.criteriaList[0].coef,
+          ],
+          theta: [
+            ...this.criteriaList.map((criteria) => criteria.name),
+            // Add value to the end to loop the radar
+            this.criteriaList[0].name,
+          ],
+          fill: this.projects.length > 1 ? false : "toself",
+          line: {
+            width: 3,
+          },
+        };
+      });
 
       let layout = {
         polar: {
           radialaxis: {
             visible: true,
-            range: [0, max],
+            range: [0, maxCriteriaCoef],
             colcolor: "gray",
             linewidth: 0,
             tickmode: "linear",
             tick0: 0,
-            dtick: max / 2,
+            dtick: maxCriteriaCoef / 2,
           },
         },
 
@@ -66,7 +72,7 @@ export default {
           pad: 0,
         },
 
-        showlegend: false,
+        // showlegend: false,
       };
 
       Plotly.react("RadarChart", data, layout, {

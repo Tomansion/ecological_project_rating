@@ -20,7 +20,7 @@
       <div class="section">
         <RadarChart
           :criteriaList="criteriaList"
-          :projectValues="projects[selectedProjectNb].values"
+          :projects="projects"
         />
       </div>
       <div class="section">
