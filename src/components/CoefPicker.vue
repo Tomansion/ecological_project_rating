@@ -47,6 +47,15 @@ export default {
           min: 0,
           max: 10,
         },
+        tooltips: true,
+        format: {
+          from: function (value) {
+            return parseInt(value);
+          },
+          to: function (value) {
+            return parseInt(value);
+          },
+        },
       });
 
       // Bind the color changing function to the update event.
@@ -59,7 +68,6 @@ export default {
 
       // Listen for project change
       this.$parent.$on("update", () => {
-        console.log("up", i);
         slider.noUiSlider.set([this.projectValues[i]]);
       });
     });
@@ -129,5 +137,9 @@ export default {
 }
 .noUi-connect {
   background: #79aed1;
+}
+.noUi-tooltip {
+  color: #0274be;
+  font-size: 0.7em;
 }
 </style>
