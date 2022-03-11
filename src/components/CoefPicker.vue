@@ -50,11 +50,17 @@ export default {
       });
 
       // Bind the color changing function to the update event.
-      slider.noUiSlider.on("update", () => {
+      slider.noUiSlider.on("change", () => {
         this.$emit("updateProjectValue", {
           criteriaNb: i,
           value: parseInt(slider.noUiSlider.get()),
         });
+      });
+
+      // Listen for project change
+      this.$parent.$on("update", () => {
+        console.log("up", i);
+        slider.noUiSlider.set([this.projectValues[i]]);
       });
     });
   },
@@ -68,6 +74,7 @@ export default {
 
       this.$emit("updateCriteriaCoef", { criteriaNb: i, coef: newInput });
     },
+    updateValues() {},
   },
 };
 </script>

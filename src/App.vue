@@ -5,6 +5,7 @@
         :projects="projects"
         :selectedProjectNb="selectedProjectNb"
         v-on:newProject="newProject"
+        v-on:selectProject="projectSelected"
       />
     </div>
     <div id="bottom">
@@ -75,6 +76,13 @@ export default {
       this.projects.push({
         name,
         values: new Array(this.nbCriteria).fill(this.defaultValue),
+      });
+      this.projectSelected(this.projects.length - 1);
+    },
+    projectSelected(projectNb) {
+      this.selectedProjectNb = projectNb;
+      this.$nextTick(() => {
+        this.$emit("update");
       });
     },
     updateCriteriaName({ name, criteriaNb }) {

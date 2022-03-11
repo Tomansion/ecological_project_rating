@@ -5,6 +5,7 @@
       :class="'project' + (i == selectedProjectNb ? ' selected' : '')"
       v-for="(project, i) in projects"
       :key="i"
+      @click="$emit('selectProject', i)"
     >
       {{ project.name }}
     </button>
