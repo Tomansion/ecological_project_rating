@@ -9,7 +9,7 @@
       />
     </div>
     <div id="bottom">
-      <div class="section">
+      <div class="section" id="CoefPicker">
         <CoefPicker
           :criteriaList="criteriaList"
           :projectValues="projects[selectedProjectNb].values"
@@ -24,10 +24,10 @@
         />
       </div>
       <div class="section">
-        <!-- <GaugeChart
-          v-if="projects[selectedProjectNb].values"
-          :projectValues="projects[selectedProjectNb].values" -->
-        <!-- /> -->
+        <GaugeChart
+          :criteriaList="criteriaList"
+          :projects="projects"
+        />
       </div>
     </div>
   </div>
@@ -37,14 +37,14 @@
 import ProjectPicker from "./components/ProjectPicker.vue";
 import CoefPicker from "./components/CoefPicker.vue";
 import RadarChart from "./components/RadarChart.vue";
-// import GaugeChart from "./components/GaugeChart.vue";
+import GaugeChart from "./components/GaugeChart.vue";
 
 export default {
   name: "App",
   components: {
     CoefPicker,
     RadarChart,
-    // GaugeChart,
+    GaugeChart,
     ProjectPicker,
   },
   data() {
@@ -125,6 +125,9 @@ body {
 }
 .section {
   flex: 1;
+}
+#CoefPicker{
+  flex: 0.8;
 }
 
 /* Change the sections directions when screen is on portrait mode */
