@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    image: "ecological_project_rating"
+    labels:
+      - traefik.frontend.rule=Host:blue-eco-formations.tomansion.fr
+      - traefik.port=8080
+    container_name: ecological_project_rating
+    restart: always
+
+networks:
+  default:
+    external: true
+    name: proxy
+
