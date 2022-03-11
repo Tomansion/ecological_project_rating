@@ -1,15 +1,19 @@
 <template>
   <div id="CoefPicker">
     <div id="criteriaList">
-      <div class="criteria" v-for="i in nbCriteria" v-bind:key="i">
-        {{ String.fromCharCode(64 + i) }}
+      <div
+        class="criteria"
+        v-for="(criteria, i) in criteriaList"
+        v-bind:key="i"
+      >
+        {{ criteria.name }}
         <input
           type="number"
           min="0"
           step="1"
           title="Coeficient"
-          v-model="criteriaValues[i - 1].coef"
-          @input="(v) => updateCoef(i - 1)"
+          v-model="criteriaCoef[i]"
+          @input="(v) => updateCoef(i)"
         />
         <div class=".slider-styled slider-round" :id="'slider_' + i" />
       </div>
@@ -23,30 +27,22 @@ import "nouislider/dist/nouislider.css";
 
 export default {
   props: {
-    nbCriteria: { type: Number, requiered: true },
+    criteriaList: { type: Array, requiered: true },
+    projectValues: { type: Array, requiered: true },
   },
   data() {
     return {
-      criteriaValues: null,
+      criteriaCoef: [1, 1, 1, 1, 1],
     };
   },
-  created() {
-    this.criteriaValues = [];
-    for (let i = 0; i < this.nbCriteria; i++)
-      this.criteriaValues.push({
-        coef: 1,
-        value: 5,
-        name: String.fromCharCode(65 + i),
-      });
-    this.$emit("updateCriteria", this.criteriaValues);
-  },
   mounted() {
-    for (let i = 1; i < this.nbCriteria + 1; i++) {
+    // Create the sliders
+    this.criteriaList.forEach((criteria, i) => {
       let slider = document.getElementById("slider_" + i);
       noUiSlider.create(slider, {
-        start: 5,
+        start: this.projectValues[i],
         connect: [true, false],
-        step: 0.1,
+        step: 1,
         range: {
           min: 0,
           max: 10,
@@ -55,21 +51,22 @@ export default {
 
       // Bind the color changing function to the update event.
       slider.noUiSlider.on("update", () => {
-        this.criteriaValues[i - 1].value = parseFloat(slider.noUiSlider.get());
-        this.$emit("updateCriteria", this.criteriaValues);
+        this.$emit("updateProjectValue", {
+          criteriaNb: i,
+          value: parseInt(slider.noUiSlider.get()),
+        });
       });
-    }
+    });
   },
   methods: {
-    updateCoef(index) {
+    updateCoef(i) {
       // Convert the input value to a number.
-      let newInput = parseFloat(this.criteriaValues[index].coef);
+      let newInput = parseFloat(this.criteriaCoef[i]);
       if (isNaN(newInput)) newInput = 0;
       if (newInput < 0) newInput = 0;
       if (newInput > 100) newInput = 100;
 
-      this.criteriaValues[index].coef = newInput;
-      this.$emit("updateCriteria", this.criteriaValues);
+      this.$emit("updateCriteriaCoef", { criteriaNb: i, coef: newInput });
     },
   },
 };
@@ -98,18 +95,13 @@ export default {
   align-items: center;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
+.criteria input ::-webkit-inner-spin-button,
+.criteria input ::-webkit-outer-spin-button {
+  opacity: 1;
 }
 
 .criteria input {
-  width: 25px;
+  width: 35px;
   height: 22px;
   margin-right: 10px;
   padding-left: 14px;

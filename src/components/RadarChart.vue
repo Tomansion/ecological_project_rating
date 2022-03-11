@@ -7,12 +7,17 @@ import Plotly from "plotly.js-dist-min";
 
 export default {
   props: {
-    criteriaValues: {
+    criteriaList: {
+      type: Array,
+      required: true,
+    },
+    projectValues: {
       type: Array,
       required: true,
     },
   },
   mounted() {
+    this.$parent.$on("update", this.updateRadar);
     this.updateRadar();
   },
   methods: {
@@ -21,24 +26,23 @@ export default {
       let max =
         Math.max.apply(
           Math,
-          this.criteriaValues.map((c) => c.coef)
+          this.criteriaList.map((c) => c.coef)
         ) * 10;
 
+      // contruct the plotly radar plot
       let data = [
         {
           type: "scatterpolar",
-          r: this.criteriaValues.map(
-            (criteria) => criteria.value * criteria.coef
-          ),
-          theta: this.criteriaValues.map((criteria) => criteria.name),
+          r: this.projectValues.map((v, i) => v * this.criteriaList[i].coef),
+          theta: this.criteriaList.map((criteria) => criteria.name),
           fill: "toself",
         },
       ];
 
       // Add value to the end to loop the radar
-      if (this.criteriaValues.length > 0) {
-        data[0].r.push(this.criteriaValues[0].value * this.criteriaValues[0].coef);
-        data[0].theta.push(this.criteriaValues[0].name);
+      if (this.projectValues.length > 0) {
+        data[0].r.push(this.projectValues[0] * this.criteriaList[0].coef);
+        data[0].theta.push(this.criteriaList[0].name);
       }
 
       let layout = {
@@ -50,7 +54,7 @@ export default {
             linewidth: 0,
             tickmode: "linear",
             tick0: 0,
-            dtick: max/2 ,
+            dtick: max / 2,
           },
         },
 
@@ -69,14 +73,6 @@ export default {
         displayModeBar: false,
         responsive: true,
       });
-    },
-  },
-  watch: {
-    criteriaValues: {
-      handler() {
-        this.updateRadar();
-      },
-      deep: true,
     },
   },
 };

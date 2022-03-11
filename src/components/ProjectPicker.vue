@@ -1,15 +1,16 @@
 <template>
   <div id="ProejctPicker">
-      PP
+      {{projects}}
   </div>
 </template>
 
 <script>
 export default {
-
-}
+  props: {
+    projects: { type: Array, required: true },
+  },
+};
 </script>
 
 <style>
-
 </style>
