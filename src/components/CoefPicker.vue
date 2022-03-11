@@ -1,5 +1,8 @@
 <template>
   <div id="CoefPicker">
+    <div id="projectName">
+      <input type="text" v-model="project.name"  @change="$emit('updateProjectName')" />
+    </div>
     <div id="criteriaList">
       <div
         class="criteria"
@@ -28,7 +31,7 @@ import "nouislider/dist/nouislider.css";
 export default {
   props: {
     criteriaList: { type: Array, requiered: true },
-    projectValues: { type: Array, requiered: true },
+    project: { type: Object, requiered: true },
   },
   data() {
     return {
@@ -40,7 +43,7 @@ export default {
     this.criteriaList.forEach((criteria, i) => {
       let slider = document.getElementById("slider_" + i);
       noUiSlider.create(slider, {
-        start: this.projectValues[i],
+        start: this.project.values[i],
         connect: [true, false],
         step: 1,
         range: {
@@ -68,7 +71,7 @@ export default {
 
       // Listen for project change
       this.$parent.$on("update", () => {
-        slider.noUiSlider.set([this.projectValues[i]]);
+        slider.noUiSlider.set([this.project.values[i]]);
       });
     });
   },
@@ -95,6 +98,9 @@ export default {
   justify-content: center;
   width: 100%;
   height: 100%;
+}
+#projectName {
+  padding-bottom: 10%;
 }
 #criteriaList {
   height: 70%;

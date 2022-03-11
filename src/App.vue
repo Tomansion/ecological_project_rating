@@ -12,22 +12,17 @@
       <div class="section" id="CoefPicker">
         <CoefPicker
           :criteriaList="criteriaList"
-          :projectValues="projects[selectedProjectNb].values"
+          :project="projects[selectedProjectNb]"
           v-on:updateCriteriaCoef="updateCriteriaCoef"
           v-on:updateProjectValue="updateProjectValue"
+          v-on:updateProjectName="$emit('update')"
         />
       </div>
       <div class="section">
-        <RadarChart
-          :criteriaList="criteriaList"
-          :projects="projects"
-        />
+        <RadarChart :criteriaList="criteriaList" :projects="projects" />
       </div>
       <div class="section">
-        <GaugeChart
-          :criteriaList="criteriaList"
-          :projects="projects"
-        />
+        <GaugeChart :criteriaList="criteriaList" :projects="projects" />
       </div>
     </div>
   </div>
@@ -126,7 +121,7 @@ body {
 .section {
   flex: 1;
 }
-#CoefPicker{
+#CoefPicker {
   flex: 0.8;
 }
 

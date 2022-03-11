@@ -55,9 +55,6 @@ export default {
             gauge: {
               axis: { range: [null, 20] },
               bar: { color: "#0274be" },
-              // steps: [
-              //   { color: "green", range: [10, 20] },
-              // ],
             },
           },
         ];
@@ -68,7 +65,6 @@ export default {
         });
       } else {
         // Vertical bar plot
-
         const data = this.projects.map((project) => {
           const projectScore = (projectTotal(project) * 20) / maxScore;
 

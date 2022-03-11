@@ -1,11 +1,17 @@
-☐ Remove float slider
-☐ Add slider tooltip
+✔ Remove float slider @done(22-03-11 22:24)
+✔ Add slider tooltip @done(22-03-11 22:24)
 
 Multiple projects:
-    ☐ add project button
-    ☐ List project in drop list
-    ☐ Mutliple colors on plots
-    ☐ Vertical bar plot
+    ✔ add project button @done(22-03-11 22:24)
+    ✔ List project in drop list @done(22-03-11 22:24)
+    ✔ Mutliple colors on plots @done(22-03-11 22:25)
+    ✔ Vertical bar plot @done(22-03-11 22:25)
 
+✘ mono plot @cancelled(22-03-11 22:29)
+✔ Rename projets @done(22-03-11 22:37)
 ☐ Rename criteria
 ☐ Add app name
+
+☐ sort wining project ?
+☐ display wining project ?
+Archive:
