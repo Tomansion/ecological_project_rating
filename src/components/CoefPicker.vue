@@ -1,24 +1,50 @@
 <template>
   <div id="CoefPicker">
-    <div id="projectName">
-      <input type="text" v-model="project.name"  @change="$emit('updateProjectName')" />
-    </div>
+    <!-- <div id="projectName">
+      <input
+        type="text"
+        v-model="project.name"
+        @change="$emit('updateProjectName')"
+      />
+    </div> -->
     <div id="criteriaList">
       <div
         class="criteria"
         v-for="(criteria, i) in criteriaList"
         v-bind:key="i"
       >
-        {{ criteria.name }}
-        <input
-          type="number"
-          min="0"
-          step="1"
-          title="Coeficient"
-          v-model="criteriaCoef[i]"
-          @input="(v) => updateCoef(i)"
-        />
-        <div class=".slider-styled slider-round" :id="'slider_' + i" />
+        <span
+          class="criteriaName"
+          @click="
+            criteriaEdit[i] = true;
+            $forceUpdate();
+          "
+        >
+          <span v-if="!criteriaEdit[i]">
+            {{ criteria.name }}
+          </span>
+          <span v-else>
+            <input
+              type="text"
+              v-model="criteria.name"
+              @change="
+                criteriaEdit[i] = false;
+                $forceUpdate();
+              "
+            />
+          </span>
+        </span>
+        <div class="criteriaControl">
+          <input
+            type="number"
+            min="0"
+            step="1"
+            title="Coeficient"
+            v-model="criteriaCoef[i]"
+            @input="(v) => updateCoef(i)"
+          />
+          <div class=".slider-styled slider-round" :id="'slider_' + i" />
+        </div>
       </div>
     </div>
   </div>
@@ -35,7 +61,8 @@ export default {
   },
   data() {
     return {
-      criteriaCoef: [1, 1, 1, 1, 1],
+      criteriaCoef: Array(this.criteriaList.length).fill(1),
+      criteriaEdit: Array(this.criteriaList.length).fill(false),
     };
   },
   mounted() {
@@ -110,18 +137,26 @@ export default {
   grid-template-rows: repeat(nbCriteria, minmax(min-content, max-content));
   align-items: center;
 }
-.criteria {
+.criteriaName {
+  font-size: 1.2em;
+  padding: 10px;
+  cursor: pointer;
+}
+.criteria input {
+  width: 90px;
+}
+.criteriaControl {
   display: grid;
-  grid-template-columns: 1fr 2fr 10fr;
+  grid-template-columns: 1fr 10fr;
   align-items: center;
 }
 
-.criteria input ::-webkit-inner-spin-button,
-.criteria input ::-webkit-outer-spin-button {
+.criteriaControl input ::-webkit-inner-spin-button,
+.criteriaControl input ::-webkit-outer-spin-button {
   opacity: 1;
 }
 
-.criteria input {
+.criteriaControl input {
   width: 35px;
   height: 22px;
   margin-right: 10px;
@@ -130,7 +165,7 @@ export default {
   border-radius: 6px;
 }
 
-.criteria input:focus {
+.criteriaControl input:focus {
   outline: 0;
 }
 </style>

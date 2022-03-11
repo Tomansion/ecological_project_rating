@@ -65,14 +65,13 @@ export default {
         },
 
         margin: {
-          l: 20,
-          r: 20,
+          l: 10,
+          r: 25,
           b: 20,
           t: 20,
           pad: 0,
         },
-
-        // showlegend: false,
+        legend: { orientation: "h" },
       };
 
       Plotly.react("RadarChart", data, layout, {

@@ -30,12 +30,13 @@ export default {
 
       const layout = {
         margin: {
-          l: 20,
-          r: 40,
-          b: 20,
-          t: 20,
+          l: 27,
+          r: 10,
+          b: 80,
+          t: 10,
           pad: 0,
         },
+        showlegend: false,
       };
 
       const maxScore =

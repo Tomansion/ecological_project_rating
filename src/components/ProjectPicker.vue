@@ -1,21 +1,26 @@
 <template>
   <div id="ProjectPicker">
-    Projects :
-    <button
-      :class="'project' + (i == selectedProjectNb ? ' selected' : '')"
-      v-for="(project, i) in projects"
-      :key="i"
-      @click="$emit('selectProject', i)"
-    >
-      {{ project.name }}
-    </button>
-    <button
-      id="addProject"
-      v-if="projects.length < maxProjectNumber"
-      @click="newProjectModal = true"
-    >
-      + Add project
-    </button>
+    <h2>
+      Modélisation - Évaluation d'ingénierie écologique - Blue Eco Formations
+    </h2>
+    <span>
+      Projects :
+      <button
+        :class="'project' + (i == selectedProjectNb ? ' selected' : '')"
+        v-for="(project, i) in projects"
+        :key="i"
+        @click="$emit('selectProject', i)"
+      >
+        {{ project.name }}
+      </button>
+      <button
+        id="addProject"
+        v-if="projects.length < maxProjectNumber"
+        @click="addProjectBtn"
+      >
+        + Add project
+      </button>
+    </span>
 
     <!-- project name modal -->
     <div id="myModal" class="modal" v-show="newProjectModal">
@@ -46,6 +51,12 @@ export default {
     selectedProjectNb: { type: Number, required: true },
   },
   methods: {
+    addProjectBtn() {
+      this.newProjectModal = true;
+      this.$nextTick(() => {
+        this.$refs.projectNameInput.focus();
+      });
+    },
     addProject() {
       if (this.newProjectName.replace(/\s/g, "").length === 0)
         this.newProjectName = "Project " + (this.projects.length + 1);
@@ -56,7 +67,6 @@ export default {
   watch: {
     newProjectModal() {
       this.newProjectName = "Project " + (this.projects.length + 1);
-      this.$refs.projectNameInput.focus();
     },
   },
 };
@@ -66,7 +76,8 @@ export default {
 #ProjectPicker {
   padding: 10px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
 }
 button {
   padding: 3px;
