@@ -1,37 +1,55 @@
 <template>
   <div id="app">
-    <div class="section">
-      <CoefPicker
-        :nbCriteria="nbCriteria"
-        v-on:updateCriteria="updateCriteria"
-      />
+    <div id="top">
+      <ProjectPicker />
     </div>
-    <div class="section">
-      <RadarChart v-if="criteriaValues" :criteriaValues="criteriaValues" />
-    </div>
-    <div class="section">
-      <GaugeChart v-if="criteriaValues" :criteriaValues="criteriaValues" />
+    <div id="bottom">
+      <div class="section">
+        <CoefPicker
+          :nbCriteria="nbCriteria"
+          v-on:updateCriteria="updateCriteria"
+        />
+      </div>
+      <div class="section">
+        <RadarChart
+          v-if="projects[selectedProjectNb].criteriaValues"
+          :criteriaValues="projects[selectedProjectNb].criteriaValues"
+        />
+      </div>
+      <div class="section">
+        <GaugeChart
+          v-if="projects[selectedProjectNb].criteriaValues"
+          :criteriaValues="projects[selectedProjectNb].criteriaValues"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import ProjectPicker from "./components/ProjectPicker.vue";
 import CoefPicker from "./components/CoefPicker.vue";
 import RadarChart from "./components/RadarChart.vue";
 import GaugeChart from "./components/GaugeChart.vue";
 
 export default {
   name: "App",
-  components: { CoefPicker, RadarChart, GaugeChart },
+  components: { CoefPicker, RadarChart, GaugeChart, ProjectPicker },
   data() {
     return {
       nbCriteria: 5,
-      criteriaValues: null,
+      projects: [
+        {
+          name: "Project",
+          criteriaValues: null,
+        },
+      ],
+      selectedProjectNb: 0,
     };
   },
   methods: {
     updateCriteria(criteriaValues) {
-      this.criteriaValues = criteriaValues;
+      this.projects[this.selectedProjectNb].criteriaValues = criteriaValues;
     },
   },
 };
@@ -48,9 +66,16 @@ body {
 
 #app {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   width: 100vw;
+  background-color: white;
   height: 100vh;
+}
+
+#bottom {
+  display: flex;
+  justify-content: space-between;
+  flex:1;
 }
 .section {
   flex: 1;
