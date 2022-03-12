@@ -15,23 +15,24 @@
       >
         <span
           class="criteriaName"
-          @click="
-            criteriaEdit[i] = true;
+          @dblclick="
+            criteriaEditNb = i;
             $forceUpdate();
           "
         >
-          <span v-if="!criteriaEdit[i]">
-            {{ criteria.name }}
-          </span>
-          <span v-else>
-            <input
-              type="text"
-              v-model="criteria.name"
-              @change="
-                criteriaEdit[i] = false;
+          <span v-if="criteriaEditNb === i" class="">
+            <input type="text" v-model="criteria.name" />
+            <button
+              @click="
+                criteriaEditNb = null;
                 $forceUpdate();
               "
-            />
+            >
+              Ok
+            </button>
+          </span>
+          <span v-else>
+            {{ criteria.name }}
           </span>
         </span>
         <div class="criteriaControl">
@@ -62,7 +63,7 @@ export default {
   data() {
     return {
       criteriaCoef: Array(this.criteriaList.length).fill(1),
-      criteriaEdit: Array(this.criteriaList.length).fill(false),
+      criteriaEditNb: null,
     };
   },
   mounted() {
@@ -138,7 +139,7 @@ export default {
   align-items: center;
 }
 .criteriaName {
-  font-size: 1.2em;
+  font-size: 0.9em;
   padding: 10px;
   cursor: pointer;
 }
@@ -179,8 +180,13 @@ export default {
 .noUi-connect {
   background: #79aed1;
 }
-.noUi-tooltip {
-  color: #0274be;
-  font-size: 0.7em;
+.noUi-horizontal .noUi-tooltip {
+  background-color: #0274be;
+  color: white;
+  border: none;
+  font-size: 0.8em;
+  font-weight: bold;
+  bottom: 0px;
+  z-index: 2;
 }
 </style>

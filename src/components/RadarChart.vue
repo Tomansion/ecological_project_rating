@@ -65,8 +65,8 @@ export default {
         },
 
         margin: {
-          l: 10,
-          r: 25,
+          l: 200,
+          r: 200,
           b: 20,
           t: 20,
           pad: 0,

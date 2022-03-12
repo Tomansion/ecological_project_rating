@@ -51,11 +51,11 @@ export default {
       defaultValue,
       nbCriteria,
       criteriaList: [
-        { name: "A", coef: 1 },
-        { name: "B", coef: 1 },
-        { name: "C", coef: 1 },
-        { name: "D", coef: 1 },
-        { name: "E", coef: 1 },
+        { name: "Auto-organisation des écosystèmes", coef: 1 },
+        { name: "Exploitable par la Recherche", coef: 1 },
+        { name: "Approche systémique", coef: 1 },
+        { name: "Préserver les énergies non-renouvelables", coef: 1 },
+        { name: "Conserver et Restaurer les écosystèmes", coef: 1 },
       ],
       projects: [
         {
@@ -122,7 +122,7 @@ body {
   flex: 1;
 }
 #CoefPicker {
-  flex: 0.8;
+  flex: 0.7;
 }
 
 /* Change the sections directions when screen is on portrait mode */
