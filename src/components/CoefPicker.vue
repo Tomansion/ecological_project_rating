@@ -1,12 +1,6 @@
 <template>
   <div id="CoefPicker">
-    <!-- <div id="projectName">
-      <input
-        type="text"
-        v-model="project.name"
-        @change="$emit('updateProjectName')"
-      />
-    </div> -->
+
     <div id="criteriaList">
       <div
         class="criteria"

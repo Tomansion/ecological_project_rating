@@ -11,6 +11,7 @@
         v-for="(project, i) in projects"
         :key="i"
         @click="$emit('selectProject', i)"
+        @dblclick="editProjectName(i)"
       >
         {{ project.name }}
       </button>
@@ -23,7 +24,7 @@
       </button>
     </span>
 
-    <!-- project name modal -->
+    <!-- new project name modal -->
     <div id="myModal" class="modal" v-show="newProjectModal">
       <form class="modal-content" v-on:submit.prevent>
         <span class="close" @click="newProjectModal = false">&times;</span>
@@ -32,6 +33,33 @@
           New project name :
           <input type="text" ref="projectNameInput" v-model="newProjectName" />
           <button @click="addProject" type="submit">Add</button>
+        </p>
+      </form>
+    </div>
+
+    <!-- project name edit modal -->
+    {{ projectNbNameEdit }}
+    {{ projects[projectNbNameEdit] }}
+    <div id="myModal" class="modal" v-show="projectNbNameEdit !== null">
+      <form class="modal-content" v-on:submit.prevent>
+        <span class="close" @click="projectNbNameEdit = null">&times;</span>
+        <h3>Renaming a project</h3>
+        <p v-if="projects[projectNbNameEdit]">
+          Project name :
+          <input
+            type="text"
+            ref="projectNameInput"
+            v-model="projects[projectNbNameEdit].name"
+          />
+          <button
+            @click="
+              projectNbNameEdit = null;
+              $forceUpdate();
+            "
+            type="submit"
+          >
+            Done
+          </button>
         </p>
       </form>
     </div>
@@ -44,6 +72,7 @@ export default {
     return {
       maxProjectNumber: 5,
       newProjectModal: false,
+      projectNbNameEdit: null,
       newProjectName: "",
     };
   },
@@ -63,6 +92,12 @@ export default {
         this.newProjectName = "Project " + (this.projects.length + 1);
       this.$emit("newProject", this.newProjectName);
       this.newProjectModal = false;
+    },
+    editProjectName(i) {
+      this.projectNbNameEdit = i;
+      this.$nextTick(() => {
+        this.$refs.projectNameInput.focus();
+      });
     },
   },
   watch: {
