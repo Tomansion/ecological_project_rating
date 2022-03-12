@@ -13,6 +13,7 @@
         <CoefPicker
           :criteriaList="criteriaList"
           :project="projects[selectedProjectNb]"
+          :selectedProjectNb="selectedProjectNb"
           v-on:updateCriteriaCoef="updateCriteriaCoef"
           v-on:updateProjectValue="updateProjectValue"
           v-on:updateProjectName="$emit('update')"

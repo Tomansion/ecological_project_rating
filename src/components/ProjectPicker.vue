@@ -6,6 +6,7 @@
     <span>
       Projects :
       <button
+        :id="'project_' + i"
         :class="'project' + (i == selectedProjectNb ? ' selected' : '')"
         v-for="(project, i) in projects"
         :key="i"
@@ -41,7 +42,7 @@
 export default {
   data() {
     return {
-      maxProjectNumber: 12,
+      maxProjectNumber: 5,
       newProjectModal: false,
       newProjectName: "",
     };
@@ -80,17 +81,34 @@ export default {
   align-items: flex-start;
 }
 button {
+  cursor: pointer;
   padding: 3px;
   margin-left: 10px;
   border-radius: 3px;
   border: solid rgb(158, 158, 158) 1px;
 }
+
+#project_0 {
+  background: #1f77b4;
+}
+#project_1 {
+  background: #ff7f0e;
+}
+#project_2 {
+  background: #2ca02c;
+}
+#project_3 {
+  background: #d62728;
+}
+#project_4 {
+  background: #9467bd;
+}
+
 .project {
   border: solid cadetblue 1px;
-  color: rgb(25, 78, 80);
+  color: white;
 }
 .project.selected {
-  color: green;
   font-weight: bold;
   border: solid green 1px;
 }

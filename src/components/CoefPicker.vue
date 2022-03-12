@@ -35,7 +35,7 @@
             {{ criteria.name }}
           </span>
         </span>
-        <div class="criteriaControl">
+        <div class="criteriaControl" :id="'project_' + selectedProjectNb">
           <input
             type="number"
             min="0"
@@ -59,6 +59,7 @@ export default {
   props: {
     criteriaList: { type: Array, requiered: true },
     project: { type: Object, requiered: true },
+    selectedProjectNb: { type: Number, requiered: true },
   },
   data() {
     return {
@@ -175,18 +176,51 @@ export default {
   border-radius: 10px;
   cursor: pointer;
   box-shadow: inset 0 0 1px #fff;
-  background-color: #0274be;
 }
-.noUi-connect {
-  background: #79aed1;
+/* Disable vertical white box */
+.noUi-handle::before,
+.noUi-handle::after {
+  display: none;
 }
+
 .noUi-horizontal .noUi-tooltip {
-  background-color: #0274be;
+  background-color: #21486100;
   color: white;
   border: none;
   font-size: 0.8em;
   font-weight: bold;
   bottom: 0px;
   z-index: 2;
+}
+
+#project_0 .noUi-connect {
+  background: #1f77b4;
+}
+#project_1 .noUi-connect {
+  background: #ff7f0e;
+}
+#project_2 .noUi-connect {
+  background: #2ca02c;
+}
+#project_3 .noUi-connect {
+  background: #d62728;
+}
+#project_4 .noUi-connect {
+  background: #9467bd;
+}
+#project_0 .noUi-handle {
+  background: #1f77b4;
+}
+#project_1 .noUi-handle {
+  background: #ff7f0e;
+}
+#project_2 .noUi-handle {
+  background: #2ca02c;
+}
+#project_3 .noUi-handle {
+  background: #d62728;
+}
+#project_4 .noUi-handle {
+  background: #9467bd;
 }
 </style>
