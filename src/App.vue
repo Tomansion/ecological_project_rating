@@ -6,6 +6,7 @@
         :selectedProjectNb="selectedProjectNb"
         v-on:newProject="newProject"
         v-on:selectProject="projectSelected"
+        v-on:updateProjectName="$emit('update')"
       />
     </div>
     <div id="bottom">
@@ -16,7 +17,6 @@
           :selectedProjectNb="selectedProjectNb"
           v-on:updateCriteriaCoef="updateCriteriaCoef"
           v-on:updateProjectValue="updateProjectValue"
-          v-on:updateProjectName="$emit('update')"
         />
       </div>
       <div class="section">

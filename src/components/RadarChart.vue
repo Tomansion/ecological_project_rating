@@ -48,6 +48,11 @@ export default {
           line: {
             width: 3,
           },
+          text: project.values.map(
+            (v, i) =>
+              this.criteriaList[i].name + ": " + v * this.criteriaList[i].coef
+          ),
+          hoverinfo: "text",
         };
       });
 
@@ -65,9 +70,9 @@ export default {
         },
 
         margin: {
-          l: 200,
-          r: 200,
-          b: 20,
+          l: 100,
+          r: 100,
+          b: 50,
           t: 20,
           pad: 0,
         },

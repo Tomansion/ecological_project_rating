@@ -31,15 +31,17 @@
         <h3>Adding a project</h3>
         <p>
           New project name :
-          <input type="text" ref="projectNameInput" v-model="newProjectName" />
+          <input
+            type="text"
+            ref="newProjectNameInput"
+            v-model="newProjectName"
+          />
           <button @click="addProject" type="submit">Add</button>
         </p>
       </form>
     </div>
 
     <!-- project name edit modal -->
-    {{ projectNbNameEdit }}
-    {{ projects[projectNbNameEdit] }}
     <div id="myModal" class="modal" v-show="projectNbNameEdit !== null">
       <form class="modal-content" v-on:submit.prevent>
         <span class="close" @click="projectNbNameEdit = null">&times;</span>
@@ -54,7 +56,7 @@
           <button
             @click="
               projectNbNameEdit = null;
-              $forceUpdate();
+              $emit('updateProjectName');
             "
             type="submit"
           >
@@ -84,7 +86,7 @@ export default {
     addProjectBtn() {
       this.newProjectModal = true;
       this.$nextTick(() => {
-        this.$refs.projectNameInput.focus();
+        this.$refs.newProjectNameInput.focus();
       });
     },
     addProject() {

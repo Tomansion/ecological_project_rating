@@ -74,9 +74,10 @@ export default {
             type: "bar",
             x: [project.name],
             y: [projectScore],
-            text: [parseFloat(projectScore).toFixed(1)],
+            text: ["<b>" + parseFloat(projectScore).toFixed(1) + "</b>"],
             tooltip: false,
             hoverinfo: "none",
+            textfont: { size: 18, color: "#fff" },
           };
         });
 
