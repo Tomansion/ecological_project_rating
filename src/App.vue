@@ -61,7 +61,7 @@ export default {
       projects: [
         {
           name: "Project 1",
-          values: defaultCriteria,
+          values: defaultCriteria
         },
       ],
       selectedProjectNb: 0,
@@ -116,7 +116,6 @@ body {
 
 #bottom {
   display: flex;
-  justify-content: space-between;
   flex: 1;
 }
 .section {

@@ -1,11 +1,29 @@
 <template>
-  <div id="GaugeChart"></div>
+  <div id="GaugeChart">
+    <div id="plotSection">
+      <div id="plot"></div>
+    </div>
+    <div id="projectGrades">
+      <div
+        :class="'grade p' + grade.projectIndex"
+        v-for="grade in grades"
+        v-bind:key="grade.projectIndex"
+      >
+        {{ grade.grade }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import Plotly from "plotly.js-dist-min";
 
 export default {
+  data() {
+    return {
+      grades: [],
+    };
+  },
   props: {
     criteriaList: {
       type: Array,
@@ -31,9 +49,9 @@ export default {
       const layout = {
         margin: {
           l: 27,
-          r: 50,
+          r: 30,
           b: 80,
-          t: 10,
+          t: 0,
           pad: 0,
         },
         showlegend: false,
@@ -45,23 +63,12 @@ export default {
 
       const colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"];
 
-      // Gauge plot
-      // {
-      //   domain: { x: [0, 1], y: [0, 1] },
-      //   value: projectScore,
-      //   type: "indicator",
-      //   mode: "gauge+number",
-      //   gauge: {
-      //     axis: { range: [null, 20] },
-      //     bar: { color: "#0274be" },
-      //   },
-      // },
-
       let steps = this.projects.map((project, i) => {
         const projectScore = (projectTotal(project) * 20) / maxScore;
         return {
           range: [0, projectScore],
           color: colors[i],
+          projectIndex: i,
         };
       });
 
@@ -71,23 +78,18 @@ export default {
 
       console.log(bestProjectScore);
 
-      const bestProjectIndexs = steps.filter(
-        (step) => step.range[1] === bestProjectScore
-      ).map((step) => steps.indexOf(step));
-
-      console.log(bestProjectIndexs);
+      const bestProjectIndexs = steps
+        .filter((step) => step.range[1] === bestProjectScore)
+        .map((step) => step.projectIndex);
 
       // Sort the steps by score
       steps.sort((a, b) => b.range[1] - a.range[1]);
-      // steps = steps.map((step, i) => {
-      //   step.thickness = 1 - i * 0.15;
-      //   return step;
-      // });
+
+      // Change the thickness if same grade
       steps = steps.map((step, i) => {
         step.thickness = 0.8;
-        if (i > 0 && step.range[1] === steps[i - 1].range[1]) {
+        if (i > 0 && step.range[1] === steps[i - 1].range[1])
           step.thickness = steps[i - 1].thickness / 2;
-        }
         return step;
       });
 
@@ -98,7 +100,7 @@ export default {
           mode: "gauge+number",
           value: bestProjectScore,
           // title: { text: "Speed", font: { size: 24 } },
-          // delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+          // delta: { reference: 10, increasing: { color: "RebeccaPurple" } },
           gauge: {
             axis: {
               range: [null, 20],
@@ -109,19 +111,40 @@ export default {
               color: "rgba(0, 0, 0, 0)", // Hide the bar
             },
             bgcolor: "lightgray",
-            borderwidth: 2,
+            borderwidth: 1,
             bordercolor: "black",
             steps,
             threshold: {
-              line: { color: colors[bestProjectIndexs[0]], width: 4 },
-              thickness: bestProjectIndexs.length == 1 ? 1 : 0,
+              line: { color: colors[bestProjectIndexs[0]], width: 2 },
+              thickness: bestProjectIndexs.length == 1 ? 0.9 : 0,
               value: bestProjectScore,
             },
           },
         },
       ];
 
-      Plotly.react("GaugeChart", data, layout, {
+      // Display the other best project
+      this.grades = [];
+      steps.forEach((step) => {
+        if (
+          (bestProjectIndexs.length == this.projects.length && this.projects.length > 1)||
+          !bestProjectIndexs.includes(step.projectIndex)
+        )
+          this.grades.push({
+            projectIndex: step.projectIndex,
+            grade: step.range[1],
+          });
+      });
+
+      console.log(this.grades);
+      layout.font = {
+        color:
+          bestProjectIndexs.length == 1
+            ? colors[bestProjectIndexs[0]]
+            : "black",
+      };
+
+      Plotly.react("plot", data, layout, {
         displayModeBar: false,
         responsive: true,
       });
@@ -142,5 +165,44 @@ export default {
 #GaugeChart {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#plotSection {
+  flex: 1;
+  width: 100%;
+  max-height: 50%;
+  background-color: red;
+}
+
+#projectGrades {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 70px;
+  z-index: 1;
+}
+
+.grade {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.grade.p0 {
+  color: #1f77b4;
+}
+.grade.p1 {
+  color: #ff7f0e;
+}
+.grade.p2 {
+  color: #2ca02c;
+}
+.grade.p3 {
+  color: #d62728;
+}
+.grade.p4 {
+  color: #9467bd;
 }
 </style>
