@@ -19,10 +19,10 @@
           v-on:updateProjectValue="updateProjectValue"
         />
       </div>
-      <div class="section">
+      <div class="section" id="Radar">
         <RadarChart :criteriaList="criteriaList" :projects="projects" />
       </div>
-      <div class="section">
+      <div class="section" id="Gauge">
         <GaugeChart :criteriaList="criteriaList" :projects="projects" />
       </div>
     </div>
@@ -53,10 +53,10 @@ export default {
       nbCriteria,
       criteriaList: [
         { name: "Auto-organisation des écosystèmes", coef: 1 },
-        { name: "Exploitable par la Recherche", coef: 1 },
+        { name: "Travaux exploitables par la Recherche", coef: 1 },
         { name: "Approche systémique", coef: 1 },
-        { name: "Préserver les énergies non-renouvelables", coef: 1 },
-        { name: "Conserver et Restaurer les écosystèmes", coef: 1 },
+        { name: "Préserver les ressources non renouvelables", coef: 1 },
+        { name: "Préserver et restaurer les écosystèmes", coef: 1 },
       ],
       projects: [
         {
@@ -124,6 +124,11 @@ body {
 }
 #CoefPicker {
   flex: 0.7;
+  max-width: 400px;
+}
+#Gauge {
+  flex: 0.7;
+  max-width: 600px;
 }
 
 /* Change the sections directions when screen is on portrait mode */

@@ -31,7 +31,7 @@ export default {
       const layout = {
         margin: {
           l: 27,
-          r: 10,
+          r: 50,
           b: 80,
           t: 10,
           pad: 0,

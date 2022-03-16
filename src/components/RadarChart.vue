@@ -44,7 +44,7 @@ export default {
             // Add value to the end to loop the radar
             this.criteriaList[0].name,
           ],
-          fill: this.projects.length > 1 ? false : "toself",
+          fill: "toself",
           line: {
             width: 3,
           },
@@ -59,21 +59,22 @@ export default {
       let layout = {
         polar: {
           radialaxis: {
-            visible: true,
             range: [0, maxCriteriaCoef],
-            colcolor: "gray",
             linewidth: 0,
-            tickmode: "linear",
-            tick0: 0,
             dtick: maxCriteriaCoef / 2,
+          },
+          angularaxis: {
+            tickfont: { size: 9},
+            rotation: 90,
+            direction: "clockwise",
           },
         },
 
         margin: {
-          l: 100,
-          r: 100,
-          b: 50,
-          t: 20,
+          l: 150,
+          r: 150,
+          b: 100,
+          t: 100,
           pad: 0,
         },
         legend: { orientation: "h" },
