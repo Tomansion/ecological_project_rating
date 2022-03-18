@@ -59,7 +59,7 @@ export default {
       let layout = {
         polar: {
           radialaxis: {
-            // range: [0, maxCriteriaCoef],
+            range: [0, maxCriteriaCoef],
             linewidth: 0,
             dtick: maxCriteriaCoef / 2,
           },

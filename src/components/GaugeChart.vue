@@ -9,7 +9,7 @@
         v-for="grade in grades"
         v-bind:key="grade.projectIndex"
       >
-        {{ grade.grade }}
+        {{ parseInt(grade.grade) - grade.grade === 0 ? grade.grade : grade.grade.toFixed(2) }}
       </div>
     </div>
   </div>
@@ -48,9 +48,9 @@ export default {
 
       const layout = {
         margin: {
-          l: 27,
+          l: 20,
           r: 30,
-          b: 80,
+          b: 20,
           t: 0,
           pad: 0,
         },
@@ -75,8 +75,6 @@ export default {
       const bestProjectScore = steps.reduce((max, step) => {
         return Math.max(max, step.range[1]);
       }, 0);
-
-      console.log(bestProjectScore);
 
       const bestProjectIndexs = steps
         .filter((step) => step.range[1] === bestProjectScore)
@@ -136,7 +134,6 @@ export default {
           });
       });
 
-      console.log(this.grades);
       layout.font = {
         color:
           bestProjectIndexs.length == 1
@@ -174,7 +171,6 @@ export default {
   flex: 1;
   width: 100%;
   max-height: 50%;
-  background-color: red;
 }
 
 #projectGrades {
