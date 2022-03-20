@@ -9,7 +9,11 @@
         v-for="grade in grades"
         v-bind:key="grade.projectIndex"
       >
-        {{ parseInt(grade.grade) - grade.grade === 0 ? grade.grade : grade.grade.toFixed(2) }}
+        {{
+          parseInt(grade.grade) - grade.grade === 0
+            ? grade.grade
+            : grade.grade.toFixed(2)
+        }}
       </div>
     </div>
   </div>
@@ -48,7 +52,7 @@ export default {
 
       const layout = {
         margin: {
-          l: 20,
+          l: 30,
           r: 30,
           b: 20,
           t: 0,
@@ -124,7 +128,8 @@ export default {
       this.grades = [];
       steps.forEach((step) => {
         if (
-          (bestProjectIndexs.length == this.projects.length && this.projects.length > 1)||
+          (bestProjectIndexs.length == this.projects.length &&
+            this.projects.length > 1) ||
           !bestProjectIndexs.includes(step.projectIndex)
         )
           this.grades.push({
@@ -178,6 +183,15 @@ export default {
   align-items: center;
   height: 70px;
   z-index: 1;
+}
+
+@media screen and (orientation: portrait) {
+  #plotSection {
+    min-height: 400px;
+  }
+  #projectGrades {
+    min-height: 150px;
+  }
 }
 
 .grade {

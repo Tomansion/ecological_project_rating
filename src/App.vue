@@ -61,7 +61,7 @@ export default {
       projects: [
         {
           name: "Projet 1",
-          values: defaultCriteria
+          values: defaultCriteria,
         },
       ],
       selectedProjectNb: 0,
@@ -109,9 +109,8 @@ body {
 #app {
   display: flex;
   flex-direction: column;
-  width: 100vw;
   background-color: white;
-  height: 100vh;
+  height: 100%;
 }
 
 #bottom {
@@ -130,10 +129,17 @@ body {
   max-width: 600px;
 }
 
+@media screen and (orientation: landscape) {
+  #app {
+    overflow: hidden;
+  }
+}
 /* Change the sections directions when screen is on portrait mode */
 @media screen and (orientation: portrait) {
-  #app {
+  #bottom {
     flex-direction: column;
+    width: 100%;
+    align-items: stretch;
   }
 }
 </style>

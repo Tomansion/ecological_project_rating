@@ -119,13 +119,18 @@ export default {
 
 <style scoped>
 #ProjectPicker {
-  padding: 10px;
+  padding-left: 10px;
   display: flex;
   flex-direction: column;
 }
 #title {
   display: flex;
   justify-content: space-between;
+}
+@media screen and (orientation: portrait) {
+  #title {
+    flex-direction: column-reverse;
+  }
 }
 button {
   cursor: pointer;
