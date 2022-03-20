@@ -60,7 +60,7 @@ export default {
       ],
       projects: [
         {
-          name: "Project 1",
+          name: "Projet 1",
           values: defaultCriteria
         },
       ],

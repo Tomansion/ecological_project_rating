@@ -1,5 +1,7 @@
 # ecological_project_rating
 
+![](images/logo.jpg)
+
 ## Project setup
 ```
 npm install

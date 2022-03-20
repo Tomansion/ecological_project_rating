@@ -34,7 +34,6 @@
             type="number"
             min="0"
             step="1"
-            title="Coeficient"
             v-model="criteriaCoef[i]"
             @input="(v) => updateCoef(i)"
           />

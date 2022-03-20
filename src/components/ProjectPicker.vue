@@ -1,10 +1,17 @@
 <template>
   <div id="ProjectPicker">
-    <h2>
-      Modélisation - Évaluation d'ingénierie écologique - Blue Eco Formations
-    </h2>
+    <div id="title">
+      <h2>
+        Modélisation - Évaluation d'ingénierie écologique - Blue Eco Formations
+      </h2>
+      <a href="https://www.blue-eco-formations.com/">
+        <img
+          src="https://www.blue-eco-formations.com/wp-content/uploads/2021/07/Logo-Blue-Eco-Formations-300x90.png"
+          alt="Logo Blue Eco Formations"
+      /></a>
+    </div>
     <span>
-      Projects :
+      Projets :
       <button
         :id="'project_' + i"
         :class="'project' + (i == selectedProjectNb ? ' selected' : '')"
@@ -20,7 +27,7 @@
         v-if="projects.length < maxProjectNumber"
         @click="addProjectBtn"
       >
-        + Add project
+        Ajouter un projet
       </button>
     </span>
 
@@ -28,15 +35,15 @@
     <div id="myModal" class="modal" v-show="newProjectModal">
       <form class="modal-content" v-on:submit.prevent>
         <span class="close" @click="newProjectModal = false">&times;</span>
-        <h3>Adding a project</h3>
+        <h3>Ajout d'un projet</h3>
         <p>
-          New project name :
+          Nom du nouveau projet :
           <input
             type="text"
             ref="newProjectNameInput"
             v-model="newProjectName"
           />
-          <button @click="addProject" type="submit">Add</button>
+          <button @click="addProject" type="submit">Ajouter</button>
         </p>
       </form>
     </div>
@@ -45,9 +52,9 @@
     <div id="myModal" class="modal" v-show="projectNbNameEdit !== null">
       <form class="modal-content" v-on:submit.prevent>
         <span class="close" @click="projectNbNameEdit = null">&times;</span>
-        <h3>Renaming a project</h3>
+        <h3>Modification du nom d'un project</h3>
         <p v-if="projects[projectNbNameEdit]">
-          Project name :
+          Nom du projet :
           <input
             type="text"
             ref="projectNameInput"
@@ -60,7 +67,7 @@
             "
             type="submit"
           >
-            Done
+            OK
           </button>
         </p>
       </form>
@@ -91,7 +98,7 @@ export default {
     },
     addProject() {
       if (this.newProjectName.replace(/\s/g, "").length === 0)
-        this.newProjectName = "Project " + (this.projects.length + 1);
+        this.newProjectName = "Projet " + (this.projects.length + 1);
       this.$emit("newProject", this.newProjectName);
       this.newProjectModal = false;
     },
@@ -104,7 +111,7 @@ export default {
   },
   watch: {
     newProjectModal() {
-      this.newProjectName = "Project " + (this.projects.length + 1);
+      this.newProjectName = "Projet " + (this.projects.length + 1);
     },
   },
 };
@@ -115,7 +122,10 @@ export default {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+}
+#title {
+  display: flex;
+  justify-content: space-between;
 }
 button {
   cursor: pointer;

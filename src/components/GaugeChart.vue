@@ -97,7 +97,6 @@ export default {
           // mode: "gauge+number+delta",
           mode: "gauge+number",
           value: bestProjectScore,
-          // title: { text: "Speed", font: { size: 24 } },
           // delta: { reference: 10, increasing: { color: "RebeccaPurple" } },
           gauge: {
             axis: {
