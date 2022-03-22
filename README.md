@@ -1,4 +1,4 @@
-# ecological_project_rating
+# ecological project rating
 
 ![](images/logo.jpg)
 

@@ -1,35 +1,41 @@
 <template>
   <div id="ProjectPicker">
-    <div id="title">
-      <h2>
+    <!-- Title & projects -->
+    <div>
+      <h2 id="title">
         Modélisation - Évaluation d'ingénierie écologique - Blue Eco Formations
       </h2>
-      <a href="https://www.blue-eco-formations.com/">
-        <img
-          src="https://www.blue-eco-formations.com/wp-content/uploads/2021/07/Logo-Blue-Eco-Formations-300x90.png"
-          alt="Logo Blue Eco Formations"
-      /></a>
+
+      <!-- Project list -->
+      <span id="projects">
+        Projets :
+        <button
+          :id="'project_' + i"
+          :class="'project' + (i == selectedProjectNb ? ' selected' : '')"
+          v-for="(project, i) in projects"
+          :key="i"
+          @click="$emit('selectProject', i)"
+          @dblclick="editProjectName(i)"
+        >
+          {{ project.name }}
+        </button>
+        <button
+          id="addProject"
+          v-if="projects.length < maxProjectNumber"
+          @click="addProjectBtn"
+        >
+          Ajouter un projet
+        </button>
+      </span>
     </div>
-    <span>
-      Projets :
-      <button
-        :id="'project_' + i"
-        :class="'project' + (i == selectedProjectNb ? ' selected' : '')"
-        v-for="(project, i) in projects"
-        :key="i"
-        @click="$emit('selectProject', i)"
-        @dblclick="editProjectName(i)"
-      >
-        {{ project.name }}
-      </button>
-      <button
-        id="addProject"
-        v-if="projects.length < maxProjectNumber"
-        @click="addProjectBtn"
-      >
-        Ajouter un projet
-      </button>
-    </span>
+
+    <!-- Logo -->
+    <a id="logo" href="https://www.blue-eco-formations.com/">
+      <img
+        src="https://www.blue-eco-formations.com/wp-content/uploads/2021/07/Logo-Blue-Eco-Formations-1024x306.png"
+        alt="Blue Eco Formations"
+      />
+    </a>
 
     <!-- new project name modal -->
     <div id="myModal" class="modal" v-show="newProjectModal">
@@ -121,15 +127,27 @@ export default {
 #ProjectPicker {
   padding-left: 10px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 #title {
   display: flex;
   justify-content: space-between;
 }
+#logo img {
+  margin: 10px 10px 0 0;
+  width: 450px;
+}
 @media screen and (orientation: portrait) {
-  #title {
+  #ProjectPicker {
     flex-direction: column-reverse;
+  }
+  #title {
+    text-align: center;
+  }
+  #logo img {
+    width: 100%;
+    margin: 0 0 10px 0;
   }
 }
 button {

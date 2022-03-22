@@ -1,33 +1,13 @@
 <template>
   <div id="CoefPicker">
-
     <div id="criteriaList">
       <div
         class="criteria"
         v-for="(criteria, i) in criteriaList"
         v-bind:key="i"
       >
-        <span
-          class="criteriaName"
-          @dblclick="
-            criteriaEditNb = i;
-            $forceUpdate();
-          "
-        >
-          <span v-if="criteriaEditNb === i" class="">
-            <input type="text" v-model="criteria.name" />
-            <button
-              @click="
-                criteriaEditNb = null;
-                $forceUpdate();
-              "
-            >
-              Ok
-            </button>
-          </span>
-          <span v-else>
-            {{ criteria.name }}
-          </span>
+        <span class="criteriaName">
+          {{ fixName(criteria.name) }}
         </span>
         <div class="criteriaControl" :id="'project_' + selectedProjectNb">
           <input
@@ -107,7 +87,9 @@ export default {
 
       this.$emit("updateCriteriaCoef", { criteriaNb: i, coef: newInput });
     },
-    updateValues() {},
+    fixName(name) {
+      return name.replace("<br>", " ");
+    },
   },
 };
 </script>
@@ -136,10 +118,6 @@ export default {
 .criteriaName {
   font-size: 0.9em;
   padding: 10px;
-  cursor: pointer;
-}
-.criteria input {
-  width: 90px;
 }
 .criteriaControl {
   display: grid;

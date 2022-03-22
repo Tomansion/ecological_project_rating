@@ -52,11 +52,11 @@ export default {
       defaultValue,
       nbCriteria,
       criteriaList: [
-        { name: "Auto-organisation des écosystèmes", coef: 1 },
-        { name: "Travaux exploitables par la Recherche", coef: 1 },
+        { name: "Auto-organisation<br>des écosystèmes", coef: 1 },
+        { name: "Travaux exploitables<br>par la Recherche", coef: 1 },
         { name: "Approche systémique", coef: 1 },
-        { name: "Préserver les ressources non renouvelables", coef: 1 },
-        { name: "Préserver et restaurer les écosystèmes", coef: 1 },
+        { name: "Préserver les ressources<br>non renouvelables", coef: 1 },
+        { name: "Préserver et restaurer<br>les écosystèmes", coef: 1 },
       ],
       projects: [
         {
@@ -102,8 +102,10 @@ html,
 body {
   height: 100%;
   margin: 0px;
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans,
+    Ubuntu, Cantarell, Helvetica Neue, sans-serif;
   background-color: white;
+  color: #383838;
 }
 
 #app {
